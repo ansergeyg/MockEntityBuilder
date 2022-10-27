@@ -128,13 +128,6 @@ class MockEntityBuilder extends TestCase {
    * If you need to configure this service override it.
    */
   public function setEntityType() {
-    $this->id = 1;
-    $values = [
-      'id' => $this->id,
-      'uuid' => '3bb9ee60-bea5-4622-b89b-a63319d10b3a',
-      'defaultLangcode' => [LanguageInterface::LANGCODE_DEFAULT => 'en'],
-    ];
-
     $this->entityType = $this->createMock('\Drupal\Core\Entity\EntityTypeInterface');
     $this->entityType->expects($this->any())
       ->method('getKeys')
@@ -251,6 +244,14 @@ class MockEntityBuilder extends TestCase {
     $container->set('language_manager', $this->languageManager);
     $container->set('plugin.manager.field.field_type', $this->fieldTypePluginManager);
     \Drupal::setContainer($container);
+
+    $this->id = 1;
+
+    $values = [
+      'id' => $this->id,
+      'uuid' => '3bb9ee60-bea5-4622-b89b-a63319d10b3a',
+      'defaultLangcode' => [LanguageInterface::LANGCODE_DEFAULT => 'en'],
+    ];
 
     $this->entity = $this->getMockForAbstractClass(
       ContentEntityBase::class,
